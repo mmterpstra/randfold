@@ -49,7 +49,7 @@ int main(int argc, char *argv[]) {
 	int    seed = (int) time ((time_t *) NULL);
 	char   *usage;
 	
-	usage = "Usage: randfold <method> <file name> <number of randomizations>\n\n\
+	usage = "Usage: randfold <method> <file name> <number of randomizations> [random seed]\n\n\
 methods:\n\
 -s simple mononucleotide shuffling\n\
 -d dinucleotide shuffling\n\
@@ -57,7 +57,7 @@ methods:\n\
 Example: randfold -d let7.tfa 999\n\n";
 	
 	/* parse command line arguments */
-	if (argc != 4 || *argv[1] != '-') {
+	if (!(argc == 4|| argc == 5 )|| *argv[1] != '-') {
 		Die (usage);
 	}
 	else {
@@ -86,9 +86,11 @@ Example: randfold -d let7.tfa 999\n\n";
 	if (opt == -1) 
 		Die (usage);
 	
-	/* initialize file name and number of randomizations */
+	/* initialize file name, number of randomizations and set seed if needed*/
 	strcpy(seqfile,*argv);
-	rand_num = atoi(*++argv);	
+	rand_num = atoi(*++argv);
+	if(argc == 3)
+		seed = atoi(*++argv);
 
 	/* initialize random generator */
 	sre_srandom(seed);
