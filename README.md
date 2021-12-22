@@ -44,7 +44,7 @@ NB: the code is using Ivo Hofacker's [ViennaRNA library](http://www.tbi.univie.a
 ## Usage
 
 ```
-./randfold <method> <file name> <number of randomizations>
+./randfold <method> <file name> <number of randomizations> [random seed]
 
 Methods available:
 -s  simple mononucleotide shuffling
@@ -54,13 +54,25 @@ Methods available:
 Example:
 randfold -d let7.tfa 999
 
-Output:
+Output format:
 <sequence name> tab <mfe> tab <probability>
 
-Example:
+Example output:
 cel-let-7       -42.90  0.001000
 
+
 ```
+
+The seed setting offers better reproduceability for unstable sequences
+
+```
+./randfold -d <(echo ">randomseq";echo "AAATTTCCGGAAACGATAGCATAGCTAGCTACGACTCAGACTAGCATAGACTACATCAGACTA") 999 1
+randomseq	-11.00	0.096000
+./randfold -d <(echo ">randomseq";echo "AAATTTCCGGAAACGATAGCATAGCTAGCTACGACTCAGACTAGCATAGACTACATCAGACTA") 999 2
+randomseq	-11.00	0.078000
+
+```
+
 
 ## Fee
 
